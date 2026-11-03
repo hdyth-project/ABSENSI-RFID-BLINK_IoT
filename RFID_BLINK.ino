@@ -125,8 +125,8 @@ struct DataSiswa {
 
 // UID ditulis huruf kecil dan dua digit per byte
 DataSiswa daftarSiswa[] = {
-  {"3671c269", "Aisyah"},
-  {"f6ddbc69", "Dayat"},
+  {"3671c269", "Nama1"},
+  {"f6ddbc69", "Nama2"},
 
   // Tambahkan siswa lainnya di sini
 };
