@@ -1,0 +1,425 @@
+PANDUAN PRAKTIKUM
+MEMBUAT SISTEM ABSENSI RFID MENGGUNAKAN ESP32 DAN BLYNK CLOUD
+================================================================
+
+Panduan ini menjelaskan langkah-langkah membuat sistem absensi RFID yang
+mengirimkan notifikasi ke HP admin melalui Blynk Cloud.
+
+PETUNJUK:
+- Ikuti langkah dari nomor 1 sampai 12 secara berurutan.
+- Selesaikan satu langkah dan periksa hasilnya sebelum lanjut.
+- Simpan informasi penting dengan aman.
+- Jangan membagikan password WiFi atau Auth Token kepada orang lain.
+
+================================================================
+1. MEMBUAT AKUN BLYNK CLOUD
+================================================================
+
+Blynk Cloud digunakan untuk menghubungkan ESP32 dengan HP melalui internet.
+
+Langkah-langkah:
+1. Buka browser di laptop atau komputer, misalnya Google Chrome.
+2. Kunjungi website: https://blynk.cloud
+3. Tekan tombol "Sign Up" atau "Create Account".
+4. Masukkan alamat email yang masih aktif.
+5. Buat kata sandi atau password.
+6. Jika diminta, centang persetujuan yang tersedia.
+7. Tekan tombol "Sign Up" untuk mendaftar.
+8. Buka email yang digunakan untuk mendaftar.
+9. Cari email dari Blynk, lalu tekan tautan verifikasi jika diminta.
+10. Kembali ke website Blynk Cloud.
+11. Login menggunakan email dan password yang sudah dibuat.
+
+HASIL YANG DIHARAPKAN:
+Kamu berhasil masuk ke halaman utama Blynk Cloud.
+
+================================================================
+2. MEMBUAT TEMPLATE
+================================================================
+
+Template adalah tempat untuk mengatur identitas dan pengaturan dasar
+perangkat ESP32 yang akan digunakan.
+
+Langkah-langkah:
+1. Setelah login, cari bagian "Developer Zone".
+2. Pilih menu "My Templates".
+3. Tekan tombol "+ New Template".
+4. Isi bagian "Name" dengan: Absensi RFID
+5. Pada bagian "Hardware", pilih: ESP32
+6. Pada bagian "Connection Type", pilih: WiFi
+7. Tekan tombol "Done" atau "Create".
+8. Tunggu sampai template berhasil dibuat.
+
+HASIL YANG DIHARAPKAN:
+Template bernama "Absensi RFID" terlihat di daftar My Templates.
+
+================================================================
+3. MEMBUAT EVENT NOTIFIKASI
+================================================================
+
+Event adalah pengaturan untuk memberi tahu Blynk bahwa ada kejadian
+tertentu. Pada proyek ini, event digunakan untuk mengirim pemberitahuan
+ketika siswa melakukan absensi menggunakan kartu RFID yang terdaftar.
+
+Langkah-langkah:
+1. Buka template "Absensi RFID".
+2. Cari menu "Events & Notifications" atau "Events".
+3. Tekan tombol "+ Create Event".
+4. Isi "Event Name" dengan: Absensi Siswa
+5. Isi "Event Code" dengan: absensi
+6. Pada "Event Type", pilih "Info" jika tersedia.
+7. Aktifkan "Enable Notifications" atau "Push Notification".
+8. Jika tersedia, aktifkan juga "Show on Timeline".
+9. Periksa kembali nama dan kode event.
+10. Pastikan kode ditulis persis: absensi (huruf kecil semua).
+11. Tekan tombol "Save".
+
+PENTING:
+Kode "absensi" harus sama persis dengan kode yang digunakan dalam
+program ESP32. Jika berbeda, notifikasi tidak akan terkirim dengan benar.
+
+HASIL YANG DIHARAPKAN:
+Event "Absensi Siswa" dengan kode "absensi" berhasil disimpan.
+
+================================================================
+4. MEMBUAT DEVICE
+================================================================
+
+Device adalah nama perangkat ESP32 yang didaftarkan ke Blynk Cloud.
+
+Langkah-langkah:
+1. Pada halaman Blynk Cloud, cari menu "Devices".
+2. Tekan tombol "+ New Device".
+3. Pilih "From Template".
+4. Pilih template "Absensi RFID".
+5. Masukkan nama perangkat, misalnya: Absensi Gerbang Sekolah
+6. Tekan tombol "Create".
+7. Tunggu sampai perangkat berhasil dibuat.
+
+HASIL YANG DIHARAPKAN:
+Perangkat "Absensi Gerbang Sekolah" muncul di daftar Devices.
+
+================================================================
+5. MENGAMBIL INFORMASI BLYNK
+================================================================
+
+Ada tiga informasi penting yang harus disiapkan untuk program ESP32:
+- Template ID
+- Template Name
+- Auth Token
+
+Langkah-langkah:
+1. Buka menu "Developer Zone".
+2. Pilih "My Templates".
+3. Klik template "Absensi RFID".
+4. Buka bagian "Home".
+5. Cari tulisan "Template ID".
+6. Salin Template ID dan simpan sementara di Notepad.
+7. Perhatikan bagian "Firmware Configuration" untuk melihat Template Name.
+8. Selanjutnya, buka menu "Devices".
+9. Klik perangkat "Absensi Gerbang Sekolah".
+10. Cari bagian "Device Info" atau "Developer Tools".
+11. Cari tulisan "Auth Token".
+12. Tekan ikon salin di samping Auth Token.
+13. Simpan Auth Token di tempat yang aman.
+
+PERHATIAN:
+Auth Token adalah kode rahasia perangkat. Jangan membagikannya kepada
+orang lain dan jangan menampilkan kode tersebut di foto atau video.
+
+HASIL YANG DIHARAPKAN:
+Template ID, Template Name, dan Auth Token sudah tersedia.
+
+================================================================
+6. MENGATUR NOTIFIKASI
+================================================================
+
+Tahap ini bertujuan agar pemberitahuan absensi dikirim ke HP admin.
+
+Langkah-langkah:
+1. Kembali ke menu "Developer Zone".
+2. Pilih "My Templates".
+3. Buka template "Absensi RFID".
+4. Masuk ke bagian "Events & Notifications".
+5. Cari event "Absensi Siswa".
+6. Buka pengaturan event tersebut.
+7. Pilih bagian "Notifications".
+8. Pastikan "Enable Notifications" sudah aktif.
+9. Aktifkan saluran "Push Notification".
+10. Pada bagian penerima atau "Recipients", pilih akun admin.
+11. Jika nama admin belum terlihat, cari menggunakan nama atau email
+    akun yang sudah terdaftar di Blynk.
+12. Tekan "Apply", "Save", atau "Create", sesuai tombol yang muncul.
+13. Pastikan pengaturan tersimpan.
+
+CATATAN:
+Nama menu dapat sedikit berbeda tergantung tampilan Blynk. Penerima
+notifikasi harus merupakan pengguna yang terdaftar di Blynk.
+
+HASIL YANG DIHARAPKAN:
+Push Notification aktif dan akun admin dipilih sebagai penerima.
+
+================================================================
+7. MENGINSTAL APLIKASI BLYNK IOT
+================================================================
+
+Aplikasi Blynk IoT digunakan oleh admin untuk menerima pemberitahuan
+absensi di HP.
+
+Langkah-langkah:
+1. Ambil HP yang akan digunakan oleh admin.
+2. Buka Google Play Store (Android) atau App Store (iPhone).
+3. Ketik "Blynk IoT" pada kolom pencarian.
+4. Pilih aplikasi Blynk IoT.
+5. Tekan "Install" atau "Get".
+6. Tunggu sampai aplikasi selesai dipasang.
+7. Buka aplikasi Blynk IoT.
+8. Login menggunakan email dan password akun Blynk yang sudah dibuat.
+9. Jika HP meminta izin notifikasi, tekan "Allow" atau "Izinkan".
+10. Pastikan koneksi internet HP aktif.
+
+HASIL YANG DIHARAPKAN:
+Aplikasi Blynk IoT terbuka dan admin berhasil login.
+
+================================================================
+8. MENYIAPKAN ARDUINO IDE
+================================================================
+
+Arduino IDE adalah aplikasi yang digunakan untuk membuat dan memasukkan
+program ke ESP32.
+
+A. MENGINSTAL ARDUINO IDE
+1. Buka browser pada laptop atau komputer.
+2. Kunjungi: https://www.arduino.cc/en/software
+3. Pilih installer sesuai sistem operasi komputer.
+4. Tekan tombol Download.
+5. Setelah selesai, buka file installer.
+6. Ikuti petunjuk instalasi sampai selesai.
+7. Buka aplikasi Arduino IDE.
+
+B. MEMASANG BOARD ESP32
+1. Buka Arduino IDE.
+2. Pilih menu "File" > "Preferences".
+3. Cari kolom "Additional Boards Manager URLs".
+4. Masukkan alamat berikut:
+
+   https://espressif.github.io/arduino-esp32/package_esp32_index.json
+
+5. Tekan "OK".
+6. Buka menu "Tools" > "Board" > "Boards Manager".
+7. Ketik "ESP32" pada kolom pencarian.
+8. Cari "esp32 by Espressif Systems".
+9. Tekan "Install".
+10. Tunggu sampai instalasi selesai.
+11. Pilih board melalui:
+    Tools > Board > ESP32 Arduino > ESP32 Dev Module
+
+C. MEMASANG LIBRARY
+1. Pilih menu "Sketch" > "Include Library" > "Manage Libraries".
+2. Ketik nama library pada kolom pencarian.
+3. Pilih library yang sesuai, lalu tekan "Install".
+4. Ulangi untuk semua library berikut:
+
+   - Blynk
+   - MFRC522
+   - Keypad
+   - ESP32Servo
+   - DHT sensor library
+   - Adafruit Unified Sensor
+   - LiquidCrystal I2C
+
+5. Pastikan "Adafruit Unified Sensor" juga sudah terpasang untuk
+   mendukung DHT sensor library.
+
+HASIL YANG DIHARAPKAN:
+Board ESP32 dan semua library yang diperlukan sudah terpasang.
+
+================================================================
+9. MEMASUKKAN KONFIGURASI KE PROGRAM ESP32
+================================================================
+
+Pada tahap ini, informasi Blynk dan WiFi dimasukkan ke dalam program.
+
+Langkah-langkah:
+1. Buka program absensi RFID yang sudah disiapkan.
+2. Cari bagian konfigurasi Blynk di awal program.
+3. Masukkan Template ID yang sudah disimpan.
+
+   Contoh:
+   #define BLYNK_TEMPLATE_ID "TMPLxxxxxxxx"
+
+   Ganti TMPLxxxxxxxx dengan Template ID milik perangkatmu.
+
+4. Masukkan Template Name.
+
+   Contoh:
+   #define BLYNK_TEMPLATE_NAME "Absensi RFID"
+
+5. Masukkan Auth Token.
+
+   Contoh:
+   #define BLYNK_AUTH_TOKEN "TOKEN_MILIKMU"
+
+6. Cari bagian pengaturan WiFi.
+7. Masukkan nama dan password WiFi yang akan digunakan ESP32.
+
+   Contoh:
+   char ssid[] = "Nama_WiFi";
+   char pass[] = "Password_WiFi";
+
+8. Cari bagian daftar kartu RFID siswa.
+9. Masukkan UID kartu dan nama siswa sesuai data masing-masing.
+
+   Contoh:
+   {"3671c269", "Aisyah"},
+   {"f6ddbc69", "Dayat"}
+
+10. Periksa kembali semua informasi.
+11. Simpan program dengan menekan Ctrl + S.
+
+PENTING:
+UID di atas hanya contoh. Gunakan UID kartu RFID yang benar-benar
+dimiliki siswa. Jangan membagikan Auth Token atau password WiFi.
+
+HASIL YANG DIHARAPKAN:
+Informasi Blynk, WiFi, dan data siswa sudah dimasukkan ke program.
+
+================================================================
+10. MENG-UPLOAD PROGRAM KE ESP32
+================================================================
+
+Upload berarti memasukkan program dari komputer ke dalam ESP32.
+
+Langkah-langkah:
+1. Hubungkan ESP32 ke komputer menggunakan kabel USB.
+2. Buka program absensi RFID di Arduino IDE.
+3. Pilih "Tools" > "Board".
+4. Pastikan board yang dipilih adalah "ESP32 Dev Module".
+5. Buka "Tools" > "Port".
+6. Pilih port yang menunjukkan ESP32.
+7. Tekan tombol "Verify" (ikon centang) untuk memeriksa program.
+8. Tunggu sampai pemeriksaan selesai.
+9. Jika tidak ada kesalahan, tekan tombol "Upload" (ikon panah ke kanan).
+10. Tunggu sampai proses upload selesai.
+11. Jika muncul tulisan "Connecting..." dan proses tidak berjalan,
+    tekan dan tahan tombol "BOOT" pada ESP32.
+12. Lepaskan tombol BOOT ketika proses upload mulai berjalan.
+13. Setelah selesai, buka "Tools" > "Serial Monitor".
+14. Atur baud rate menjadi 115200.
+15. Periksa pesan yang muncul untuk memastikan ESP32 berhasil
+    terhubung ke WiFi dan Blynk Cloud.
+
+HASIL YANG DIHARAPKAN:
+Program berhasil di-upload dan ESP32 terhubung ke Blynk Cloud.
+
+================================================================
+11. MELAKUKAN PENGUJIAN SISTEM
+================================================================
+
+Setelah program berhasil dimasukkan, semua bagian harus diuji satu per satu.
+
+A. PENGUJIAN RFID TERDAFTAR
+1. Tempelkan kartu RFID yang sudah didaftarkan.
+2. Pastikan nama siswa berhasil dikenali.
+3. Pastikan servo membuka pintu selama sekitar 3 detik.
+4. Pastikan LED hijau menyala.
+
+B. PENGUJIAN RFID TIDAK DIKENAL
+1. Gunakan kartu RFID yang belum didaftarkan.
+2. Pastikan akses ditolak.
+3. Pastikan LED merah menyala sebagai tanda penolakan.
+4. Pastikan servo tidak membuka pintu.
+
+C. PENGUJIAN KEYPAD
+1. Masukkan PIN yang benar.
+2. Tekan tombol "#" untuk mengonfirmasi.
+3. Pastikan pintu terbuka.
+4. Coba masukkan PIN yang salah.
+5. Pastikan akses ditolak.
+6. Gunakan tombol "*" untuk menghapus PIN yang sedang dimasukkan.
+
+D. PENGUJIAN SERVO
+1. Pastikan servo dapat membuka dan mengunci pintu.
+2. Pastikan pintu kembali terkunci setelah sekitar 3 detik.
+
+E. PENGUJIAN LED
+1. Pastikan LED hijau menyala ketika akses diterima.
+2. Pastikan LED merah menyala ketika akses ditolak.
+
+F. PENGUJIAN DHT22
+1. Pastikan sensor dapat membaca suhu ruangan.
+
+G. PENGUJIAN LCD
+1. Pastikan LCD dapat menampilkan informasi suhu ruangan.
+2. Pastikan tulisan pada LCD terlihat jelas.
+
+HASIL YANG DIHARAPKAN:
+Semua komponen bekerja sesuai fungsi masing-masing.
+
+================================================================
+12. MENGUJI NOTIFIKASI KE HP ADMIN
+================================================================
+
+Tahap terakhir adalah memastikan sistem absensi berhasil mengirim
+notifikasi ke HP admin.
+
+Langkah-langkah:
+1. Pastikan ESP32 menyala.
+2. Pastikan ESP32 terhubung ke jaringan WiFi.
+3. Pastikan aplikasi Blynk IoT di HP admin sudah terbuka atau berjalan
+   di latar belakang.
+4. Pastikan HP admin memiliki koneksi internet dan izin notifikasi aktif.
+5. Ambil kartu RFID siswa yang sudah didaftarkan.
+6. Tempelkan kartu pada RFID reader.
+7. Tunggu sampai kartu berhasil dikenali.
+8. Perhatikan HP admin.
+9. Seharusnya muncul pemberitahuan absensi dari Blynk.
+10. Buka notifikasi tersebut.
+11. Periksa apakah nama siswa, UID kartu, tanggal, dan waktu sudah benar.
+
+CATATAN:
+- Notifikasi hanya dikirim ketika kartu RFID siswa yang terdaftar digunakan.
+- Membuka pintu menggunakan PIN keypad tidak mengirimkan notifikasi
+  pada program yang dirancang.
+- Jika ESP32 kehilangan koneksi internet, notifikasi tidak otomatis
+  disimpan untuk dikirim ulang oleh program ini.
+
+HASIL YANG DIHARAPKAN:
+Notifikasi absensi berhasil diterima oleh HP admin.
+
+================================================================
+ALUR KERJA SISTEM
+================================================================
+
+1. Siswa menempelkan kartu RFID.
+2. ESP32 membaca UID kartu.
+3. ESP32 memeriksa apakah kartu sudah terdaftar.
+4. Jika kartu terdaftar:
+   - Pintu terbuka.
+   - LED hijau menyala.
+   - ESP32 mengirim notifikasi melalui Blynk Cloud.
+5. Jika kartu tidak terdaftar:
+   - Akses ditolak.
+   - LED merah menyala.
+   - Tidak ada notifikasi absensi.
+6. HP admin menerima notifikasi absensi.
+
+================================================================
+CATATAN PENTING KEAMANAN DAN PENGGUNAAN
+================================================================
+
+1. Jangan membagikan password WiFi kepada orang yang tidak berwenang.
+2. Jangan membagikan Auth Token Blynk.
+3. Pastikan UID kartu RFID dan nama siswa ditulis dengan benar.
+4. Pastikan ESP32 dan HP admin memiliki koneksi internet saat pengujian.
+5. Jika notifikasi tidak masuk, periksa koneksi internet, pengaturan
+   Push Notification, penerima notifikasi, dan kode event "absensi".
+6. Uji setiap komponen sebelum sistem digunakan.
+
+================================================================
+SELESAI
+================================================================
+
+Jika seluruh langkah berhasil dilakukan, sistem absensi RFID sudah
+dapat mengenali kartu siswa, mengendalikan akses pintu, dan mengirimkan
+notifikasi absensi ke HP admin melalui Blynk Cloud.
